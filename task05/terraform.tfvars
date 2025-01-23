@@ -3,15 +3,12 @@
 resource_groups = {
   rg_eus = {
     name     = "cmaz-69544203-mod5-rg-01"
-    location = "East US"
   },
   rg_wus = {
     name     = "cmaz-69544203-mod5-rg-02"
-    location = "West US"
   },
   rg_cus = {
     name     = "cmaz-69544203-mod5-rg-03"
-    location = "Central US"
   }
 }
 
