@@ -1,25 +1,53 @@
-resource "azurerm_resource_group" "this" {
-  name     = var.rg_name
-  location = var.location
+# Create Resource group
+module "resource_group" {
+  source = "./modules/resource_group"
+
+  for_each = var.resource_groups
+  name     = each.value.name
+  location = each.value.location
+  tags     = var.tags
 }
 
-locals {
-  key_values = {
-    CONTAINER_SAS_TOKEN = data.azurerm_storage_account_blob_container_sas.this.sas
-    FILESHARE_SAS_TOKEN = data.azurerm_storage_account_sas.this.sas
-  }
-  output_file_name = "../infra/verify_params.json"
+# Create App Service plan
+module "app_service_plan" {
+  source = "./modules/app_service_plan"
+
+  for_each     = var.webapps
+  name         = each.value.service_plan_props.name
+  rg_name      = var.resource_groups[each.value.rg_key].name
+  location     = module.resource_group[each.value.rg_key].location
+  os_type      = each.value.service_plan_props.os_type
+  sku_name     = each.value.service_plan_props.sku_name
+  worker_count = each.value.service_plan_props.worker_count
+  tags         = var.tags
 }
 
-resource "null_resource" "generate_json" {
-  triggers = {
-    key_values_hash  = sha256(jsonencode(local.key_values))
-    output_file_name = local.output_file_name
-  }
+# Create App Service
+module "app_service" {
+  source = "./modules/app_service"
 
-  provisioner "local-exec" {
-    command = <<-EOT
-      echo '${jsonencode(local.key_values)}' | jq '.' > ${local.output_file_name}
-    EOT
+  for_each        = var.webapps
+  name            = each.value.webapp_name
+  rg_name         = var.resource_groups[each.value.rg_key].name
+  location        = module.resource_group[each.value.rg_key].location
+  service_plan_id = module.app_service_plan[each.key].app_service_plan_id
+  ip_restrictions = var.webapp_ip_restrictions
+  tags            = var.tags
+}
+
+# Create Traffic Manager
+module "traffic_manager" {
+  source                 = "./modules/traffic_manager"
+  profile_name           = var.traffic_manager.profile_name
+  rg_name                = var.resource_groups[var.traffic_manager.rg_key].name
+  traffic_routing_method = var.traffic_manager.traffic_routing_method
+  traffic_manager_endpoints = {
+    for key, value in module.app_service :
+    key => {
+      name = var.webapps[key].webapp_name
+      id   = value.id
+    }
   }
+  tags       = var.tags
+  depends_on = [module.resource_group]
 }
