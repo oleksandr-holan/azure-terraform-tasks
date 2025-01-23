@@ -1,0 +1,9 @@
+variable "rg_name" {}
+variable "location" {}
+variable "storage_account_name" {}
+variable "blob_container_name" {}
+variable "file_share_name" {}
+variable "lifecycle_rule_name" {}
+variable "vnet_name" {}
+variable "subnet_name" {}
+variable "agent_ip" {}
