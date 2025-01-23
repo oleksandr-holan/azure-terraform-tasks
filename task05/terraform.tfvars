@@ -55,7 +55,7 @@ webapps = {
 webapp_ip_restrictions = {
   "allow-ip" = {
     action      = "Allow"
-    ip_address  = "1.2.3.4/32" # Allowed Verification agent IP
+    ip_address  = "18.196.122.208/32" # Allowed Verification agent IP
     priority    = 1100
     description = "Allow agent IP"
   }
