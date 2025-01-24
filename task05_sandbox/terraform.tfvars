@@ -2,16 +2,13 @@
 # List of Resource groups
 resource_groups = {
   rg_eus = {
-    name     = "cmaz-69544203-mod5-rg-01"
-    location = "East US"
+    name = "cmaz-69544203-mod5-rg-01"
   },
   rg_wus = {
-    name     = "cmaz-69544203-mod5-rg-02"
-    location = "West US"
+    name = "cmaz-69544203-mod5-rg-02"
   },
   rg_cus = {
-    name     = "cmaz-69544203-mod5-rg-03"
-    location = "Central US"
+    name = "cmaz-69544203-mod5-rg-03"
   }
 }
 
@@ -33,7 +30,7 @@ webapps = {
     service_plan_props = {
       name         = "cmaz-69544203-mod5-asp-01"
       os_type      = "Windows"
-      sku_name     = "P0v3"
+      sku_name     = "B1"
       worker_count = 2
     }
     webapp_name = "cmaz-69544203-mod5-app-01"
@@ -43,7 +40,7 @@ webapps = {
     service_plan_props = {
       name         = "cmaz-69544203-mod5-asp-02"
       os_type      = "Windows"
-      sku_name     = "P1v3"
+      sku_name     = "S1"
       worker_count = 1
     }
     webapp_name = "cmaz-69544203-mod5-app-02"
