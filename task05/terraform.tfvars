@@ -30,7 +30,7 @@ webapps = {
     service_plan_props = {
       name         = "cmaz-69544203-mod5-asp-01"
       os_type      = "Windows"
-      sku_name     = "B1"
+      sku_name     = "S1"
       worker_count = 2
     }
     webapp_name = "cmaz-69544203-mod5-app-01"
