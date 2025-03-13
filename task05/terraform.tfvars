@@ -2,13 +2,13 @@
 # List of Resource groups
 resource_groups = {
   rg_eus = {
-    name = "cmaz-69544203-mod5-rg-01"
+    name = "cmtr-69544203-rg-01"
   },
   rg_wus = {
-    name = "cmaz-69544203-mod5-rg-02"
+    name = "cmtr-69544203-rg-02"
   },
   rg_cus = {
-    name = "cmaz-69544203-mod5-rg-03"
+    name = "cmtr-69544203-rg-03"
   }
 }
 
@@ -19,7 +19,7 @@ tags = {
 
 # Traffic Manager
 traffic_manager = {
-  profile_name           = "cmaz-69544203-mod5-traf"
+  profile_name           = "cmtr-69544203-traf"
   rg_key                 = "rg_cus"
   traffic_routing_method = "Performance"
 }
@@ -28,22 +28,22 @@ traffic_manager = {
 webapps = {
   "webapp_eus" = {
     service_plan_props = {
-      name         = "cmaz-69544203-mod5-asp-01"
+      name         = "cmtr-69544203-asp-01"
       os_type      = "Windows"
       sku_name     = "S1"
       worker_count = 2
     }
-    webapp_name = "cmaz-69544203-mod5-app-01"
+    webapp_name = "cmtr-69544203-app-01"
     rg_key      = "rg_eus"
   }
   "webapp_wus" = {
     service_plan_props = {
-      name         = "cmaz-69544203-mod5-asp-02"
+      name         = "cmtr-69544203-asp-02"
       os_type      = "Windows"
       sku_name     = "S1"
       worker_count = 1
     }
-    webapp_name = "cmaz-69544203-mod5-app-02"
+    webapp_name = "cmtr-69544203-app-02"
     rg_key      = "rg_wus"
   }
 }
